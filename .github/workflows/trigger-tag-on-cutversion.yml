@@ -17,3 +17,4 @@ jobs:
                   echo "GOT github.ref: ${{github.ref}}"
                   echo "GOT github.ref_name: ${{github.ref_name}}"
                   echo VERSION NUMBER IS ${BRANCH_NAME##*-}
+                  echo "TEST"
