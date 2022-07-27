@@ -25,5 +25,5 @@ jobs:
                   echo "V1: $GITHUB_PR_TITLE"
                   GITHUB_PR_TITLE="${GITHUB_PR_TITLE^^}"
                   echo "V2: $GITHUB_PR_TITLE"
-                  GITHUB_PR_TITLE="${GITHUB_PR_TITLE^^CUT VERSION}"
+                  GITHUB_PR_TITLE="${GITHUB_PR_TITLE%"CUT VERSION"}"
                   echo "V3: ${GITHUB_PR_TITLE%% *}"
