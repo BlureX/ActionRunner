@@ -16,5 +16,8 @@ jobs:
                   echo "BRANCH IS: ${BRANCH_NAME}"
                   echo "GOT github.ref: ${{github.ref}}"
                   echo "GOT github.ref_name: ${{github.ref_name}}"
+                  echo "GOT github.event.pull_request.base.ref: ${{github.event.pull_request.base.ref}}"
                   echo VERSION NUMBER IS ${BRANCH_NAME##*-}
                   echo "TEST"
+                  export LATESTLOG=$(git log -1 --pretty=%B)
+                  export SOURCEBRANCH=$(echo $LATESTLOG | awk -F '\\\\n' '{print $1}' |  awk -F '/' '{print $2}' | awk '{print $1}')
