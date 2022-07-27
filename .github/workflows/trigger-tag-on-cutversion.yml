@@ -22,8 +22,8 @@ jobs:
             - name: Env
               run: |
                   GITHUB_PR_TITLE="${{github.event.head_commit.message}}"
-                  echo $GITHUB_PR_TITLE
+                  echo "V1: $GITHUB_PR_TITLE"
                   GITHUB_PR_TITLE="${GITHUB_PR_TITLE^^}"
-                  echo $GITHUB_PR_TITLE
+                  echo "V2: $GITHUB_PR_TITLE"
                   GITHUB_PR_TITLE="${GITHUB_PR_TITLE^^CUT VERSION}"
-                  echo "${GITHUB_PR_TITLE%% *}"
+                  echo "V3: ${GITHUB_PR_TITLE%% *}"
