@@ -20,3 +20,5 @@ jobs:
               run: echo '${{ toJSON(matrix) }}'
             - name: Env
               run: env
+            - name: "Print Ver"
+              run: echo "Test"
