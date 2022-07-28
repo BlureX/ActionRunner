@@ -1,4 +1,4 @@
-name: Tag and Release on Cut Version
+name: Tag and Release
 on:
     push:
         branches: ["master", "main"]
