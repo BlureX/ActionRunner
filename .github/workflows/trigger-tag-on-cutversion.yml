@@ -8,7 +8,7 @@ on:
 jobs:
     dump_contexts_to_log:
         runs-on: ubuntu-latest
-        if: COMMIT_MESSAGE=${{github.head_commit.message}} && startsWith(${COMMIT_MESSAGE^^}, 'CUT VERSION')
+        if: startsWith(${{github.head_commit.message}}, 'Cut version')
         steps:
             - name: Dump GitHub context
               id: github_context_step
@@ -27,8 +27,7 @@ jobs:
               id: get-version
               run: |
                   GITHUB_PR_TITLE="${{github.event.head_commit.message}}"
-                  GITHUB_PR_TITLE="${GITHUB_PR_TITLE^^}"
-                  GITHUB_PR_TITLE="${GITHUB_PR_TITLE#"CUT VERSION "}"
+                  GITHUB_PR_TITLE="${GITHUB_PR_TITLE#"Cut version "}"
                   GITHUB_PR_TAG="${GITHUB_PR_TITLE%% *}"
                   echo "::set-output name=version::$GITHUB_PR_TAG"
             - name: Create Tag
