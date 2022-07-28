@@ -8,7 +8,7 @@ on:
 jobs:
     dump_contexts_to_log:
         runs-on: ubuntu-latest
-        if: startsWith(github.head_commit.message^^, 'CUT VERSION')
+        if: startsWith(github.head_commit.message, 'Cut Version')
         steps:
             - name: Dump GitHub context
               id: github_context_step
