@@ -27,7 +27,8 @@ jobs:
               id: get-version
               run: |
                   GITHUB_PR_TITLE="${{github.event.head_commit.message}}"
-                  GITHUB_PR_TITLE="${GITHUB_PR_TITLE#"Cut version "}"
+                  GITHUB_PR_TITLE="${GITHUB_PR_TITLE^^}"
+                  GITHUB_PR_TITLE="${GITHUB_PR_TITLE#"CUT VERSION "}"
                   GITHUB_PR_TAG="${GITHUB_PR_TITLE%% *}"
                   echo "::set-output name=version::$GITHUB_PR_TAG"
             - name: Create Tag
