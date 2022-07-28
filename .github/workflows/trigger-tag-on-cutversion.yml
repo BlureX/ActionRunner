@@ -1,8 +1,9 @@
 name: Context testing
-on: push
-    branches:
-      - main
-      - master
+on:
+    push:
+        branches: ["master", "main"]
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
 
 jobs:
     dump_contexts_to_log:
