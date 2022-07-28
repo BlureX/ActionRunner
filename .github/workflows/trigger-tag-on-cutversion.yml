@@ -12,6 +12,7 @@ jobs:
             - name: Print
               run: |
                   echo '${{github.head_commit.message}}'
+                  echo '${{contains(github.head_commit.message, 'Cut version')}}'
                   echo '${{startsWith(github.head_commit.message, 'Cut version')}}'
 
     dump_contexts_to_log:
@@ -38,16 +39,16 @@ jobs:
                   GITHUB_PR_TITLE="${GITHUB_PR_TITLE#"Cut version "}"
                   GITHUB_PR_TAG="${GITHUB_PR_TITLE%% *}"
                   echo "::set-output name=version::$GITHUB_PR_TAG"
-            - name: Create Tag
-              uses: actions/github-script@v3
-              env:
-                  TAG: ${{ steps.get-version.outputs.version }}
-              with:
-                  github-token: ${{ github.token }}
-                  script: |
-                      github.git.createRef({
-                        owner: context.repo.owner,
-                        repo: context.repo.repo,
-                      ref: "refs/tags/${{ steps.get-version.outputs.version }}",
-                        sha: context.sha
-                      })
+            # - name: Create Tag
+            #   uses: actions/github-script@v3
+            #   env:
+            #       TAG: ${{ steps.get-version.outputs.version }}
+            #   with:
+            #       github-token: ${{ github.token }}
+            #       script: |
+            #           github.git.createRef({
+            #             owner: context.repo.owner,
+            #             repo: context.repo.repo,
+            #           ref: "refs/tags/${{ steps.get-version.outputs.version }}",
+            #             sha: context.sha
+            #           })
