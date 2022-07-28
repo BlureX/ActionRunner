@@ -1,4 +1,4 @@
-name: Context testing
+name: Tag and Release on Cut Version
 on:
     push:
         branches: ["master", "main"]
