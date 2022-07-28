@@ -28,7 +28,7 @@ jobs:
                       github.git.createRef({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                      ref: "refs/tags/${{ steps.get-version.outputs.version }}",
+                        ref: "refs/tags/${{ steps.get-version.outputs.version }}",
                         sha: context.sha
                       })
             - name: Create Release
@@ -39,5 +39,5 @@ jobs:
                       github.repos.createRelease({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                      tag_name: "${{ steps.get-version.outputs.version }}",
+                        tag_name: "${{ steps.get-version.outputs.version }}",
                       })
