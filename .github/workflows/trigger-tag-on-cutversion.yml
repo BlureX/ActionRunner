@@ -1,9 +1,14 @@
 name: Context testing
-on: push
+on:
+    push:
+        branches: ["master", "main"]
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
 
 jobs:
     dump_contexts_to_log:
         runs-on: ubuntu-latest
+        if: COMMIT_MESSAGE=${{github.head_commit.message}} && startsWith(${COMMIT_MESSAGE^^}, 'CUT VERSION')
         steps:
             - name: Dump GitHub context
               id: github_context_step
@@ -18,5 +23,24 @@ jobs:
               run: echo '${{ toJSON(strategy) }}'
             - name: Dump matrix context
               run: echo '${{ toJSON(matrix) }}'
-            - name: Env
-              run: env
+            - name: Get Version
+              id: get-version
+              run: |
+                  GITHUB_PR_TITLE="${{github.event.head_commit.message}}"
+                  GITHUB_PR_TITLE="${GITHUB_PR_TITLE^^}"
+                  GITHUB_PR_TITLE="${GITHUB_PR_TITLE#"CUT VERSION "}"
+                  GITHUB_PR_TAG="${GITHUB_PR_TITLE%% *}"
+                  echo "::set-output name=version::$GITHUB_PR_TAG"
+            - name: Create Tag
+              uses: actions/github-script@v3
+              env:
+                  TAG: ${{ steps.get-version.outputs.version }}
+              with:
+                  github-token: ${{ github.token }}
+                  script: |
+                      github.git.createRef({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                      ref: "refs/tags/${{ steps.get-version.outputs.version }}",
+                        sha: context.sha
+                      })
