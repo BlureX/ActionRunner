@@ -28,15 +28,15 @@ jobs:
                   GITHUB_PR_TAG="${GITHUB_PR_TITLE%% *}"
                   echo "::set-output name=version::$GITHUB_PR_TAG"
             - name: Create Tag
-            uses: actions/github-script@v3
-            env:
-                TAG: ${{ steps.get-version.outputs.version }}
-            with:
-                github-token: ${{ github.token }}
-                script: |
-                  github.git.createRef({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                  ref: "refs/tags/${{ steps.get-version.outputs.version }}",
-                    sha: context.sha
-                  })
+              uses: actions/github-script@v3
+              env:
+                  TAG: ${{ steps.get-version.outputs.version }}
+              with:
+                  github-token: ${{ github.token }}
+                  script: |
+                      github.git.createRef({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                      ref: "refs/tags/${{ steps.get-version.outputs.version }}",
+                        sha: context.sha
+                      })
