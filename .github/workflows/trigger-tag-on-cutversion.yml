@@ -7,4 +7,4 @@ on:
 
 jobs:
     tag_and_release:
-        uses: blurex/publicactions/.github/workflows/tagandrelease.yml@main
+        uses: SpalkLtd/github-reusable-workflows/.github/workflows/tagandrelease.yml@main
